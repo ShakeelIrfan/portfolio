@@ -1,0 +1,150 @@
+index.html<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shakeel Irfan</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #0a0a0f; color: #e8e8f0; min-height: 100vh; overflow-x: hidden; }
+
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; border-bottom: 1px solid #1e1e2e; position: sticky; top: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(10px); z-index: 100; }
+  .logo { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.05em; color: #a78bfa; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { color: #888; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+  .nav-links a:hover { color: #e8e8f0; }
+
+  .hero { padding: 7rem 3rem 5rem; max-width: 900px; margin: 0 auto; }
+  .tag { display: inline-block; background: #1a1a2e; border: 1px solid #2d2d4e; color: #a78bfa; font-size: 0.78rem; padding: 0.3rem 0.8rem; border-radius: 999px; margin-bottom: 1.5rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: #fff; }
+  .hero h1 span { color: #a78bfa; }
+  .hero p { margin-top: 1.5rem; font-size: 1.15rem; color: #888; max-width: 520px; line-height: 1.7; }
+  .hero-btns { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: #a78bfa; color: #0a0a0f; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: #c4b5fd; transform: translateY(-1px); }
+  .btn-secondary { background: transparent; color: #e8e8f0; padding: 0.75rem 1.75rem; border-radius: 8px; border: 1px solid #2d2d4e; text-decoration: none; font-size: 0.95rem; transition: border-color 0.2s, transform 0.15s; }
+  .btn-secondary:hover { border-color: #a78bfa; transform: translateY(-1px); }
+
+  .section { padding: 4rem 3rem; max-width: 900px; margin: 0 auto; }
+  .section-label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: #a78bfa; margin-bottom: 1rem; }
+  .section-title { font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 2.5rem; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
+  .skill-card { background: #111118; border: 1px solid #1e1e2e; border-radius: 12px; padding: 1.25rem; text-align: center; transition: border-color 0.2s, transform 0.2s; }
+  .skill-card:hover { border-color: #a78bfa; transform: translateY(-3px); }
+  .skill-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .skill-name { font-size: 0.88rem; color: #aaa; }
+
+  .project-card { background: #111118; border: 1px solid #1e1e2e; border-radius: 16px; padding: 2rem; transition: border-color 0.2s, transform 0.2s; }
+  .project-card:hover { border-color: #a78bfa; transform: translateY(-3px); }
+  .project-badge { display: inline-block; background: #1a1a2e; border: 1px solid #2d2d4e; color: #a78bfa; font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 999px; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.07em; }
+  .project-title { font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem; }
+  .project-desc { color: #888; font-size: 0.95rem; line-height: 1.7; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+  .project-tag { background: #0f0f1a; border: 1px solid #1e1e2e; color: #666; font-size: 0.78rem; padding: 0.25rem 0.65rem; border-radius: 6px; }
+
+  .about-box { background: #111118; border: 1px solid #1e1e2e; border-radius: 16px; padding: 2rem; }
+  .about-box p { color: #888; line-height: 1.8; font-size: 1rem; }
+  .about-box p + p { margin-top: 1rem; }
+
+  .interests { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  .interest-tag { display: flex; align-items: center; gap: 0.4rem; background: #0f0f1a; border: 1px solid #1e1e2e; color: #aaa; font-size: 0.85rem; padding: 0.4rem 0.9rem; border-radius: 999px; }
+  .interest-tag span { font-size: 1rem; }
+
+  .contact-box { background: #111118; border: 1px solid #1e1e2e; border-radius: 16px; padding: 2.5rem; text-align: center; }
+  .contact-box h3 { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem; }
+  .contact-box p { color: #888; margin-bottom: 1.5rem; }
+
+  footer { border-top: 1px solid #1e1e2e; padding: 1.5rem 3rem; text-align: center; color: #444; font-size: 0.85rem; }
+  .divider { height: 1px; background: #1e1e2e; max-width: 900px; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">SI</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="tag">Available for collabs</div>
+  <h1>Hey, I'm <span>Shakeel.</span></h1>
+  <p>A tech & gaming enthusiast who builds cool stuff — from AI-powered apps to creative digital projects.</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn-primary">See my work</a>
+    <a href="#contact" class="btn-secondary">Get in touch</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="about">
+  <div class="section-label">About me</div>
+  <div class="section-title">Who I am</div>
+  <div class="about-box">
+    <p>I'm Shakeel Irfan — a tech-obsessed student who loves building things from scratch. Whether it's coding an app, gaming, or experimenting with AI tools, I'm always creating something.</p>
+    <p>I'm into the full creative process — ideating, building, and shipping. LowkeyStudy is my latest project, a study help app built to actually make learning less painful.</p>
+    <div class="interests">
+      <div class="interest-tag"><span>🎮</span> Gaming</div>
+      <div class="interest-tag"><span>🤖</span> AI & Tech</div>
+      <div class="interest-tag"><span>📱</span> App Building</div>
+      <div class="interest-tag"><span>🎬</span> Creative Projects</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="section-label">Skills</div>
+  <div class="section-title">What I work with</div>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-icon">🤖</div><div class="skill-name">AI Tools</div></div>
+    <div class="skill-card"><div class="skill-icon">💻</div><div class="skill-name">App Building</div></div>
+    <div class="skill-card"><div class="skill-icon">🎨</div><div class="skill-name">Creative Design</div></div>
+    <div class="skill-card"><div class="skill-icon">🎬</div><div class="skill-name">Video Editing</div></div>
+    <div class="skill-card"><div class="skill-icon">🌐</div><div class="skill-name">Web Dev</div></div>
+    <div class="skill-card"><div class="skill-icon">🎮</div><div class="skill-name">Gaming</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="projects">
+  <div class="section-label">Projects</div>
+  <div class="section-title">What I've built</div>
+  <div class="project-card">
+    <div class="project-badge">App</div>
+    <div class="project-title">LowkeyStudy</div>
+    <div class="project-desc">An AI-powered study help app designed to make learning actually bearable. Features AI tutors, flashcards, streaks, and points to keep you motivated and on track.</div>
+    <div class="project-tags">
+      <span class="project-tag">AI</span>
+      <span class="project-tag">Education</span>
+      <span class="project-tag">Base44</span>
+      <span class="project-tag">Gamification</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="contact">
+  <div class="section-label">Contact</div>
+  <div class="section-title">Let's link</div>
+  <div class="contact-box">
+    <h3>Got a project or idea?</h3>
+    <p>I'm always down to work on something cool. Hit me up.</p>
+    <a href="mailto:shakeel@email.com" class="btn-primary">Send a message</a>
+  </div>
+</section>
+
+<footer>
+  Built by Shakeel Irfan · 2026
+</footer>
+
+</body>
+</html>
