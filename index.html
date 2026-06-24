@@ -3,271 +3,360 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shakeel Irfan</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<title>devbyshakeel</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#08060f;
-  --surface:#0f0b1a;
-  --card:#13101f;
-  --border:#ffffff0f;
-  --purple:#7c3aed;
-  --violet:#a855f7;
-  --pink:#e879f9;
-  --white:#f0ecff;
-  --muted:#7c6fa0;
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--white);font-family:'Space Grotesk',sans-serif;min-height:100vh;overflow-x:hidden}
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap');
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 2.5rem;border-bottom:1px solid var(--border);background:rgba(8,6,15,0.85);backdrop-filter:blur(16px)}
-.logo{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;letter-spacing:2px;color:var(--white)}
-.logo span{background:linear-gradient(135deg,var(--violet),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.82rem;letter-spacing:1px;transition:color .2s}
-.nav-links a:hover{color:var(--white)}
-.hire-btn{background:linear-gradient(135deg,var(--purple),var(--violet));color:white;border:none;padding:.5rem 1.3rem;font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:1px;cursor:pointer;border-radius:6px;text-decoration:none;transition:opacity .2s}
-.hire-btn:hover{opacity:.85}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --cyan:#00f5ff;
+    --purple:#8b5cf6;
+    --dark:#050510;
+    --dark2:#0a0a1a;
+    --dark3:#0f0f2a;
+    --text:#e2e8f0;
+    --muted:#64748b;
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--dark);color:var(--text);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding:6rem 2.5rem 4rem;position:relative;overflow:hidden}
-.hero-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.15) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
-.hero-glow2{position:absolute;width:350px;height:350px;background:radial-gradient(circle,rgba(232,121,249,.08) 0%,transparent 65%);top:20%;right:5%;pointer-events:none}
-.hero-content{position:relative;z-index:1;max-width:750px}
-.hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);padding:.35rem 1rem;border-radius:100px;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--violet);margin-bottom:2rem}
-.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.hero-title{font-family:'Syne',sans-serif;font-size:clamp(3rem,7vw,6rem);font-weight:800;line-height:.95;letter-spacing:-2px;margin-bottom:1.5rem}
-.hero-title .name{background:linear-gradient(135deg,var(--violet),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:1.05rem;color:var(--muted);max-width:500px;line-height:1.7;font-weight:300;margin-bottom:2.5rem}
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-primary{background:linear-gradient(135deg,var(--purple),var(--violet));color:white;border:none;padding:.9rem 2rem;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:8px;text-decoration:none;transition:opacity .2s;display:inline-block}
-.btn-primary:hover{opacity:.85}
-.btn-ghost{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.12);padding:.9rem 2rem;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:8px;text-decoration:none;transition:all .2s;display:inline-block}
-.btn-ghost:hover{border-color:var(--violet);color:var(--violet)}
-.hero-stats{display:flex;gap:3rem;margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid var(--border)}
-.stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--violet),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-label{font-size:.75rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:.2rem}
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,245,255,0.08);}
+  .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--cyan);letter-spacing:-0.5px;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:500;letter-spacing:0.5px;transition:color 0.3s;}
+  .nav-links a:hover{color:var(--cyan);}
 
-/* SECTION */
-section{padding:6rem 2.5rem}
-.section-eyebrow{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--violet);margin-bottom:.6rem}
-.section-title{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;letter-spacing:-1px;margin-bottom:3rem}
+  /* HERO */
+  #hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  #canvas3d{position:absolute;inset:0;width:100%;height:100%;}
+  .hero-content{position:relative;z-index:2;text-align:center;padding:2rem;}
+  .hero-tag{display:inline-block;font-size:0.75rem;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:1.5rem;border:1px solid rgba(0,245,255,0.3);padding:0.4rem 1rem;border-radius:2px;}
+  .hero-name{font-family:'Syne',sans-serif;font-size:clamp(3rem,8vw,6rem);font-weight:800;line-height:1;margin-bottom:0.5rem;background:linear-gradient(135deg,#fff 0%,var(--cyan) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .hero-sub{font-size:clamp(1rem,2vw,1.3rem);color:var(--muted);margin-bottom:2.5rem;font-weight:300;}
+  .hero-sub span{color:var(--cyan);}
+  .btn-group{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{background:var(--cyan);color:var(--dark);padding:0.75rem 2rem;border:none;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;border-radius:2px;text-decoration:none;transition:all 0.3s;letter-spacing:0.5px;}
+  .btn-primary:hover{background:#fff;transform:translateY(-2px);}
+  .btn-outline{background:transparent;color:var(--cyan);padding:0.75rem 2rem;border:1px solid var(--cyan);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;border-radius:2px;text-decoration:none;transition:all 0.3s;letter-spacing:0.5px;}
+  .btn-outline:hover{background:rgba(0,245,255,0.08);transform:translateY(-2px);}
+  .scroll-indicator{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;color:var(--muted);font-size:0.75rem;letter-spacing:2px;animation:bounce 2s infinite;}
+  .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--cyan),transparent);}
+  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
 
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.about-text p{color:var(--muted);line-height:1.8;margin-bottom:1.2rem;font-size:.95rem}
-.about-text p strong{color:var(--white)}
-.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.skill-tag{background:var(--card);border:1px solid var(--border);padding:.7rem 1rem;border-radius:8px;font-size:.82rem;font-weight:500;display:flex;align-items:center;gap:.6rem;transition:border-color .2s}
-.skill-tag:hover{border-color:rgba(124,58,237,.3)}
-.skill-dot{width:6px;height:6px;border-radius:50%;background:var(--violet)}
+  /* SECTIONS */
+  section{padding:6rem 2rem;}
+  .section-inner{max-width:1100px;margin:0 auto;}
+  .section-label{font-size:0.7rem;letter-spacing:4px;color:var(--cyan);text-transform:uppercase;margin-bottom:0.75rem;}
+  .section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;margin-bottom:1rem;line-height:1.1;}
+  .section-title span{color:var(--cyan);}
+  .divider{width:60px;height:2px;background:linear-gradient(to right,var(--cyan),var(--purple));margin-bottom:3rem;}
 
-/* PROJECTS */
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
-.project-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .3s,border-color .3s;text-decoration:none;display:block}
-.project-card:hover{transform:translateY(-5px);border-color:rgba(124,58,237,.35)}
-.project-preview{width:100%;height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
-.project-preview.void{background:linear-gradient(135deg,#08060f 0%,#1a0a3a 100%)}
-.project-preview.ai{background:linear-gradient(135deg,#060810 0%,#0a1a2a 100%)}
-.project-preview.game{background:linear-gradient(135deg,#060f08 0%,#0a2a10 100%)}
-.project-preview-label{position:absolute;bottom:12px;left:12px;background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.3);padding:3px 10px;border-radius:100px;font-size:.65rem;font-weight:600;letter-spacing:1.5px;color:var(--violet);text-transform:uppercase}
-.project-info{padding:1.4rem}
-.project-name{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:.4rem;color:var(--white)}
-.project-desc{font-size:.83rem;color:var(--muted);line-height:1.6;margin-bottom:1.1rem}
-.project-tags{display:flex;gap:.5rem;flex-wrap:wrap}
-.project-tag{background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.2);color:var(--violet);font-size:.65rem;font-weight:600;letter-spacing:1px;padding:3px 9px;border-radius:100px;text-transform:uppercase}
-.project-link{display:flex;align-items:center;gap:.4rem;color:var(--violet);font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:1rem;text-decoration:none;transition:color .2s}
-.project-link:hover{color:var(--pink)}
+  /* ABOUT */
+  #about{background:var(--dark2);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+  .about-text p{color:var(--muted);line-height:1.8;margin-bottom:1rem;font-size:0.95rem;}
+  .about-text p span{color:var(--text);}
+  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+  .skill-item{background:var(--dark3);border:1px solid rgba(0,245,255,0.1);padding:0.75rem 1rem;border-radius:2px;font-size:0.85rem;color:var(--muted);display:flex;align-items:center;gap:0.5rem;transition:all 0.3s;}
+  .skill-item:hover{border-color:var(--cyan);color:var(--cyan);}
+  .skill-dot{width:6px;height:6px;background:var(--cyan);border-radius:50%;flex-shrink:0;}
 
-/* SERVICES */
-.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
-.service-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;transition:border-color .3s}
-.service-card:hover{border-color:rgba(124,58,237,.3)}
-.service-icon{font-size:2rem;margin-bottom:1rem}
-.service-name{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:.6rem}
-.service-desc{font-size:.83rem;color:var(--muted);line-height:1.6}
-.service-price{margin-top:1.2rem;font-size:.82rem;font-weight:600;color:var(--violet)}
+  /* PROJECTS */
+  #projects{background:var(--dark);}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+  .project-card{background:var(--dark2);border:1px solid rgba(139,92,246,0.15);border-radius:4px;overflow:hidden;transition:all 0.4s;cursor:pointer;position:relative;}
+  .project-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,245,255,0.03),rgba(139,92,246,0.03));opacity:0;transition:opacity 0.3s;}
+  .project-card:hover{transform:translateY(-6px);border-color:rgba(0,245,255,0.3);}
+  .project-card:hover::before{opacity:1;}
+  .card-preview{height:180px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;position:relative;overflow:hidden;}
+  .card-preview::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,var(--dark2));}
+  .void-preview{background:linear-gradient(135deg,#1a0a2e,#0d0520);}
+  .void-preview .p-label{color:#a855f7;}
+  .sai-preview{background:linear-gradient(135deg,#0a1628,#050e1f);}
+  .sai-preview .p-label{color:var(--cyan);}
+  .gl-preview{background:linear-gradient(135deg,#0a1a0a,#051405);}
+  .gl-preview .p-label{color:#22c55e;}
+  .card-body{padding:1.5rem;}
+  .card-tag{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
+  .card-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:0.5rem;}
+  .card-desc{color:var(--muted);font-size:0.85rem;line-height:1.6;margin-bottom:1rem;}
+  .card-tech{display:flex;flex-wrap:wrap;gap:0.5rem;}
+  .tech-badge{font-size:0.7rem;padding:0.25rem 0.6rem;background:rgba(0,245,255,0.06);border:1px solid rgba(0,245,255,0.15);color:var(--cyan);border-radius:2px;letter-spacing:0.5px;}
 
-/* CONTACT */
-.contact-wrapper{max-width:600px;margin:0 auto;text-align:center}
-.contact-wrapper .section-title{margin-bottom:1rem}
-.contact-sub{color:var(--muted);margin-bottom:2.5rem;line-height:1.7}
-.contact-links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.contact-link{display:flex;align-items:center;gap:.6rem;background:var(--card);border:1px solid var(--border);padding:.8rem 1.5rem;border-radius:8px;color:var(--white);text-decoration:none;font-size:.85rem;font-weight:500;transition:all .2s}
-.contact-link:hover{border-color:var(--violet);color:var(--violet)}
+  /* CONTACT */
+  #contact{background:var(--dark2);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+  .contact-info p{color:var(--muted);line-height:1.8;margin-bottom:2rem;font-size:0.95rem;}
+  .contact-links{display:flex;flex-direction:column;gap:1rem;}
+  .contact-link{display:flex;align-items:center;gap:1rem;color:var(--text);text-decoration:none;padding:1rem;background:var(--dark3);border:1px solid rgba(0,245,255,0.08);border-radius:2px;transition:all 0.3s;font-size:0.9rem;}
+  .contact-link:hover{border-color:var(--cyan);color:var(--cyan);}
+  .contact-link-icon{width:36px;height:36px;background:rgba(0,245,255,0.08);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+  .contact-form{display:flex;flex-direction:column;gap:1rem;}
+  .form-group{display:flex;flex-direction:column;gap:0.4rem;}
+  .form-label{font-size:0.75rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+  .form-input{background:var(--dark3);border:1px solid rgba(0,245,255,0.1);color:var(--text);padding:0.85rem 1rem;font-family:'Space Grotesk',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;}
+  .form-input:focus{border-color:var(--cyan);}
+  .form-input::placeholder{color:var(--muted);}
+  textarea.form-input{resize:vertical;min-height:120px;}
+  .submit-btn{background:var(--cyan);color:var(--dark);padding:0.85rem;border:none;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;border-radius:2px;transition:all 0.3s;letter-spacing:1px;text-transform:uppercase;}
+  .submit-btn:hover{background:#fff;}
 
-/* FOOTER */
-footer{border-top:1px solid var(--border);padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.75rem}
+  /* FOOTER */
+  footer{background:var(--dark);border-top:1px solid rgba(0,245,255,0.06);padding:2rem;text-align:center;color:var(--muted);font-size:0.8rem;}
+  footer span{color:var(--cyan);}
 
-@media(max-width:768px){
-  nav{padding:1rem 1.2rem}.nav-links{display:none}
-  .hero{padding:5rem 1.2rem 3rem}
-  .about-grid{grid-template-columns:1fr}
-  section{padding:4rem 1.2rem}
-  .hero-stats{gap:2rem}
-  footer{flex-direction:column;gap:.5rem;text-align:center}
-}
+  /* ANIMATIONS */
+  .reveal{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  @media(max-width:768px){
+    .about-grid,.contact-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+  }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">Shakeel <span>Irfan</span></div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#contact" class="hire-btn">Hire Me</a>
+  <div class="logo">devbyshakeel</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
+<section id="hero">
+  <canvas id="canvas3d"></canvas>
   <div class="hero-content">
-    <div class="hero-tag"><span class="hero-tag-dot"></span>Available for projects</div>
-    <h1 class="hero-title">Hi, I'm<br><span class="name">Shakeel Irfan.</span></h1>
-    <p class="hero-sub">I build websites and online stores from scratch. No templates, no drag-and-drop. Real code, real results. Based in Dubai, UAE.</p>
-    <div class="hero-actions">
+    <div class="hero-tag">Available for freelance</div>
+    <h1 class="hero-name">Shakeel Irfan</h1>
+    <p class="hero-sub">Web Developer based in <span>Dubai</span></p>
+    <div class="btn-group">
       <a href="#projects" class="btn-primary">View My Work</a>
-      <a href="#contact" class="btn-ghost">Get in Touch</a>
+      <a href="#contact" class="btn-outline">Hire Me</a>
     </div>
-    <div class="hero-stats">
-      <div><div class="stat-num">5+</div><div class="stat-label">Projects Built</div></div>
-      <div><div class="stat-num">3+</div><div class="stat-label">Live Sites</div></div>
-      <div><div class="stat-num">100%</div><div class="stat-label">From Scratch</div></div>
-    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
   </div>
 </section>
 
-<section id="about" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="section-eyebrow">Who I Am</div>
-  <div class="section-title">About Me</div>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>I'm a <strong>16-year-old developer</strong> from Dubai. I build websites and apps because I actually enjoy making things, not because I watched some course and thought it'd make me rich.</p>
-      <p>I've built <strong>AI chat apps</strong>, <strong>full ecommerce stores</strong> with live databases and admin panels, game trackers, and more. Everything is live and deployed, not just sitting on my laptop.</p>
-      <p>Right now I'm doing <strong>freelance web development</strong>. If you need a site built, hit me up. I'm straightforward, I deliver, and I don't ghost.</p>
+<section id="about">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">Who I am</p>
+      <h2 class="section-title">Building the <span>web</span> one pixel at a time</h2>
+      <div class="divider"></div>
     </div>
-    <div class="skills-grid">
-      <div class="skill-tag"><span class="skill-dot"></span>HTML & CSS</div>
-      <div class="skill-tag"><span class="skill-dot"></span>JavaScript</div>
-      <div class="skill-tag"><span class="skill-dot"></span>Firebase</div>
-      <div class="skill-tag"><span class="skill-dot"></span>GitHub Pages</div>
-      <div class="skill-tag"><span class="skill-dot"></span>Web Apps</div>
-      <div class="skill-tag"><span class="skill-dot"></span>Ecommerce</div>
-      <div class="skill-tag"><span class="skill-dot"></span>AI Integration</div>
-      <div class="skill-tag"><span class="skill-dot"></span>No-code Tools</div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm <span>Shakeel</span>, a web developer from Dubai who builds clean, fast, and modern websites that actually get results. I'm 15 and already building real products — from e-commerce stores to AI-powered apps.</p>
+        <p>I combine <span>strong design sensibility</span> with solid code. Every project I ship is built to impress, perform, and convert.</p>
+        <p>Whether you need a portfolio, a store, or a full web app — I've got you covered. And I won't break your budget doing it.</p>
+      </div>
+      <div class="skills-grid reveal">
+        <div class="skill-item"><div class="skill-dot"></div>HTML / CSS</div>
+        <div class="skill-item"><div class="skill-dot"></div>JavaScript</div>
+        <div class="skill-item"><div class="skill-dot"></div>Firebase</div>
+        <div class="skill-item"><div class="skill-dot"></div>GitHub Pages</div>
+        <div class="skill-item"><div class="skill-dot"></div>UI / UX Design</div>
+        <div class="skill-item"><div class="skill-dot"></div>Web Apps</div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="projects">
-  <div class="section-eyebrow">My Work</div>
-  <div class="section-title">Projects</div>
-  <div class="projects-grid">
-    <a href="https://shakeelirfan.github.io/drip-store" target="_blank" class="project-card">
-      <div class="project-preview void">
-        🛒
-        <span class="project-preview-label">Live Demo</span>
-      </div>
-      <div class="project-info">
-        <div class="project-name">VOID Store</div>
-        <div class="project-desc">Full ecommerce store with product listings, shopping cart, order system, and an admin panel. Built with Firebase for real-time data.</div>
-        <div class="project-tags">
-          <span class="project-tag">HTML/CSS</span>
-          <span class="project-tag">Firebase</span>
-          <span class="project-tag">JavaScript</span>
-        </div>
-        <div class="project-link">View Live →</div>
-      </div>
-    </a>
-    <a href="https://shakeelirfan.github.io/s-ai" target="_blank" class="project-card">
-      <div class="project-preview ai">
-        🤖
-        <span class="project-preview-label">Live Demo</span>
-      </div>
-      <div class="project-info">
-        <div class="project-name">S AI</div>
-        <div class="project-desc">An AI-powered chat app built from scratch. Clean interface, fast responses, fully deployed on GitHub Pages.</div>
-        <div class="project-tags">
-          <span class="project-tag">HTML/CSS</span>
-          <span class="project-tag">AI API</span>
-          <span class="project-tag">JavaScript</span>
-        </div>
-        <div class="project-link">View Live →</div>
-      </div>
-    </a>
-    <a href="https://shakeelirfan.github.io/game-session-tracker" target="_blank" class="project-card">
-      <div class="project-preview game">
-        🎮
-        <span class="project-preview-label">Live Demo</span>
-      </div>
-      <div class="project-info">
-        <div class="project-name">GameLog</div>
-        <div class="project-desc">A game session tracker app. Log your gaming sessions, track stats, and see your history. Clean and functional.</div>
-        <div class="project-tags">
-          <span class="project-tag">HTML/CSS</span>
-          <span class="project-tag">JavaScript</span>
-          <span class="project-tag">LocalStorage</span>
-        </div>
-        <div class="project-link">View Live →</div>
-      </div>
-    </a>
-  </div>
-</section>
-
-<section id="services" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="section-eyebrow">What I Offer</div>
-  <div class="section-title">Services</div>
-  <div class="services-grid">
-    <div class="service-card">
-      <div class="service-icon">🛒</div>
-      <div class="service-name">Online Store</div>
-      <div class="service-desc">Full ecommerce site with products, cart, checkout, and admin panel. Firebase backend, no monthly fees.</div>
-      <div class="service-price">Starting at $80</div>
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">What I've built</p>
+      <h2 class="section-title">Featured <span>Projects</span></h2>
+      <div class="divider"></div>
     </div>
-    <div class="service-card">
-      <div class="service-icon">🌐</div>
-      <div class="service-name">Landing Page</div>
-      <div class="service-desc">Clean, modern landing page for your business or brand. Fast, responsive, and actually looks good.</div>
-      <div class="service-price">Starting at $40</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">💼</div>
-      <div class="service-name">Portfolio Site</div>
-      <div class="service-desc">Professional portfolio to show off your work. Custom design, no templates, built from scratch.</div>
-      <div class="service-price">Starting at $50</div>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">⚡</div>
-      <div class="service-name">Web App</div>
-      <div class="service-desc">Custom web applications with databases and real functionality. Tell me what you need, I'll build it.</div>
-      <div class="service-price">Starting at $100</div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="card-preview void-preview">
+          <span class="p-label">VOID</span>
+        </div>
+        <div class="card-body">
+          <p class="card-tag">E-commerce Store</p>
+          <h3 class="card-title">VOID Store</h3>
+          <p class="card-desc">A full dark-themed e-commerce demo store with Firebase backend, product listings, cart functionality, and authentication.</p>
+          <div class="card-tech">
+            <span class="tech-badge">HTML/CSS</span>
+            <span class="tech-badge">Firebase</span>
+            <span class="tech-badge">JavaScript</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="card-preview sai-preview">
+          <span class="p-label">S AI</span>
+        </div>
+        <div class="card-body">
+          <p class="card-tag">AI Chat App</p>
+          <h3 class="card-title">S AI</h3>
+          <p class="card-desc">A sleek AI-powered chat application with a clean interface, real-time responses, and a minimal cyberpunk aesthetic.</p>
+          <div class="card-tech">
+            <span class="tech-badge">HTML/CSS</span>
+            <span class="tech-badge">Claude API</span>
+            <span class="tech-badge">JavaScript</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="card-preview gl-preview">
+          <span class="p-label">GL</span>
+        </div>
+        <div class="card-body">
+          <p class="card-tag">Web App</p>
+          <h3 class="card-title">GameLog</h3>
+          <p class="card-desc">A game session tracker with Firebase auth, Firestore database, stats dashboard, and CSV export functionality.</p>
+          <div class="card-tech">
+            <span class="tech-badge">Firebase</span>
+            <span class="tech-badge">Firestore</span>
+            <span class="tech-badge">JavaScript</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="contact">
-  <div class="contact-wrapper">
-    <div class="section-eyebrow">Get In Touch</div>
-    <div class="section-title">Let's Work Together</div>
-    <p class="contact-sub">Got a project in mind? Whether it's an online store, a landing page, or something custom — dm me and let's make it happen.</p>
-    <div class="contact-links">
-      <a href="https://instagram.com/devbyshakeel" target="_blank" class="contact-link">📸 @devbyshakeel</a>
-      <a href="mailto:shakeel.irfan1590@gmail.com" class="contact-link">✉️ Email Me</a>
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">Get in touch</p>
+      <h2 class="section-title">Let's build something <span>together</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>Got a project in mind? I'm open to freelance work and collaborations. Send me a message and I'll get back to you.</p>
+        <div class="contact-links">
+          <a href="mailto:shakeel.irfan1590@gmail.com" class="contact-link">
+            <div class="contact-link-icon">✉</div>
+            <div>
+              <div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;letter-spacing:1px;text-transform:uppercase;">Email</div>
+              <div>shakeel.irfan1590@gmail.com</div>
+            </div>
+          </a>
+          <a href="https://instagram.com/Shakeel_Irfan" target="_blank" class="contact-link">
+            <div class="contact-link-icon">📷</div>
+            <div>
+              <div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;letter-spacing:1px;text-transform:uppercase;">Instagram</div>
+              <div>Shakeel Irfan</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-input" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <button class="submit-btn">Send Message</button>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <span>© 2026 Shakeel Irfan</span>
-  <span>Built from scratch · Dubai, UAE</span>
+  <p>Built by <span>devbyshakeel</span> · Dubai · 2025</p>
 </footer>
 
+<script>
+// THREE.JS 3D BACKGROUND
+const canvas = document.getElementById('canvas3d');
+const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.setSize(canvas.parentElement.offsetWidth, canvas.parentElement.offsetHeight);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, canvas.parentElement.offsetWidth/canvas.parentElement.offsetHeight, 0.1, 1000);
+camera.position.z = 5;
+
+// Floating particles
+const geo = new THREE.BufferGeometry();
+const count = 800;
+const positions = new Float32Array(count*3);
+const colors = new Float32Array(count*3);
+for(let i=0;i<count;i++){
+  positions[i*3] = (Math.random()-0.5)*20;
+  positions[i*3+1] = (Math.random()-0.5)*20;
+  positions[i*3+2] = (Math.random()-0.5)*20;
+  const t = Math.random();
+  colors[i*3] = t > 0.5 ? 0 : 0.54;
+  colors[i*3+1] = t > 0.5 ? 0.96 : 0.36;
+  colors[i*3+2] = t > 0.5 ? 1 : 0.96;
+}
+geo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+geo.setAttribute('color', new THREE.BufferAttribute(colors,3));
+const mat = new THREE.PointsMaterial({size:0.04, vertexColors:true, transparent:true, opacity:0.8});
+const particles = new THREE.Points(geo, mat);
+scene.add(particles);
+
+// Wireframe torus
+const torusGeo = new THREE.TorusGeometry(2, 0.6, 12, 60);
+const torusMat = new THREE.MeshBasicMaterial({color:0x00f5ff, wireframe:true, transparent:true, opacity:0.06});
+const torus = new THREE.Mesh(torusGeo, torusMat);
+scene.add(torus);
+
+// Icosahedron
+const icoGeo = new THREE.IcosahedronGeometry(1.2, 1);
+const icoMat = new THREE.MeshBasicMaterial({color:0x8b5cf6, wireframe:true, transparent:true, opacity:0.08});
+const ico = new THREE.Mesh(icoGeo, icoMat);
+scene.add(ico);
+
+let mouseX = 0, mouseY = 0;
+document.addEventListener('mousemove', e=>{
+  mouseX = (e.clientX/window.innerWidth-0.5)*2;
+  mouseY = -(e.clientY/window.innerHeight-0.5)*2;
+});
+
+function animate(){
+  requestAnimationFrame(animate);
+  const t = Date.now()*0.001;
+  particles.rotation.y = t*0.05;
+  particles.rotation.x = t*0.02;
+  torus.rotation.x = t*0.3 + mouseY*0.2;
+  torus.rotation.y = t*0.2 + mouseX*0.2;
+  ico.rotation.x = t*0.2;
+  ico.rotation.y = t*0.15;
+  ico.position.x = mouseX*0.3;
+  ico.position.y = mouseY*0.3;
+  renderer.render(scene,camera);
+}
+animate();
+
+window.addEventListener('resize',()=>{
+  const w = canvas.parentElement.offsetWidth;
+  const h = canvas.parentElement.offsetHeight;
+  renderer.setSize(w,h);
+  camera.aspect = w/h;
+  camera.updateProjectionMatrix();
+});
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:0.1});
+reveals.forEach(r=>obs.observe(r));
+</script>
 </body>
 </html>
