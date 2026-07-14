@@ -34,7 +34,7 @@ a{text-decoration:none;color:inherit}
 .l-line{position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--border);transform:scaleX(0);transform-origin:left}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 52px;display:flex;align-items:center;justify-content:space-between;opacity:0;transition:background .4s,backdrop-filter .4s;border-bottom:1px solid transparent}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:24px 52px;display:flex;align-items:center;justify-content:space-between;gap:20px;opacity:0;transition:background .4s,backdrop-filter .4s;border-bottom:1px solid transparent}
 nav.scrolled{background:rgba(5,5,5,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:var(--border)}
 .nav-logo{font-family:'Big Shoulders Display',sans-serif;font-size:16px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
 .nav-logo span{color:var(--accent)}
@@ -180,12 +180,8 @@ nav.scrolled{background:rgba(5,5,5,.8);backdrop-filter:blur(20px);-webkit-backdr
 .si-name{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);text-align:center}
 
 /* ═══ PROCESS ═══ */
-#process{padding:0 0 140px;overflow:hidden}
-.proc-pin{height:500vh}
-.proc-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
-.proc-header{padding:0 52px;margin-bottom:0;flex-shrink:0;width:320px}
-.proc-steps-track{display:flex;gap:2px;flex:1}
-.proc-step{flex:0 0 320px;padding:52px 44px;background:var(--dim);height:480px;display:flex;flex-direction:column;justify-content:flex-end;clip-path:inset(0 0 100% 0)}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:72px}
+.proc-step{padding:44px 32px;background:var(--bg);position:relative;clip-path:inset(0 0 100% 0)}
 .proc-num{font-family:'Big Shoulders Display',sans-serif;font-size:88px;font-weight:900;color:rgba(255,255,255,.04);letter-spacing:-.04em;line-height:1;margin-bottom:32px;display:block}
 .proc-title{font-family:'Big Shoulders Display',sans-serif;font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
 .proc-desc{font-size:13px;color:var(--muted);line-height:1.75}
@@ -232,8 +228,19 @@ footer{padding:48px 52px;border-top:1px solid var(--border);display:flex;align-i
 .f-links a:hover{color:var(--white)}
 .f-copy{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.08em}
 
+/* WORD REVEAL */
+.wr-word{display:inline-block;overflow:hidden;vertical-align:bottom}
+.wr-inner{display:inline-block;transform:translateY(110%)}
+/* SCRAMBLE */
+.scramble-char{display:inline-block}
+/* ROTATING WORD */
+#rotating-word{display:inline-block;position:relative}
+/* CURSOR BLINK */
+.cursor-blink{display:inline-block;width:3px;height:.8em;background:var(--accent);margin-left:4px;vertical-align:middle;animation:cblink 1s step-end infinite}
+@keyframes cblink{0%,100%{opacity:1}50%{opacity:0}}
+
 /* RESPONSIVE */
-@media(max-width:900px){
+@media(max-width:640px){
   nav{padding:20px 24px}
   .nav-links{display:none}
   #hero{padding:0 24px 60px}
@@ -244,11 +251,7 @@ footer{padding:48px 52px;border-top:1px solid var(--border);display:flex;align-i
   footer{flex-direction:column;align-items:flex-start}
   #services,#stack,#faq,#contact{padding:100px 24px}
   #stats{padding:80px 24px}
-  .proc-pin{height:auto}
-  .proc-sticky{position:relative;flex-direction:column;height:auto;padding:80px 24px 0}
-  .proc-header{width:100%;margin-bottom:48px;padding:0}
-  .proc-steps-track{flex-direction:column}
-  .proc-step{flex:0 0 auto;height:auto;clip-path:inset(0 100% 0 0)}
+  .proc-grid{grid-template-columns:1fr 1fr}
   .wc-num,.work-header,.work-dots{left:24px}
   .wc-info{padding:24px}
 }
@@ -282,15 +285,18 @@ footer{padding:48px 52px;border-top:1px solid var(--border);display:flex;align-i
 <!-- ═══ HERO ═══ -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
+  <div id="hero-fallback" style="position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 20% 80%,rgba(200,255,0,.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 20%,rgba(200,255,0,.04) 0%,transparent 50%),linear-gradient(135deg,#0a0a0a 0%,#050505 50%,#080808 100%);"></div>
   <div class="h-content">
     <div class="h-eyebrow">
       <div class="h-dot"></div>
       <span class="h-etxt">Available for Projects · 2025</span>
     </div>
     <h1 class="h-hed">
-      <span class="line"><span class="li">We Build</span></span>
+      <span class="line"><span class="li" id="scramble-line">We Build</span></span>
       <span class="line"><span class="li" style="color:var(--accent);font-style:italic">Premium</span></span>
-      <span class="line"><span class="li">Experiences.</span></span>
+      <span class="line"><span class="li">
+        <span id="rotating-word">Experiences.</span>
+      </span></span>
     </h1>
     <div class="h-bot">
       <p class="h-desc">A Dubai-based premium web studio. Custom-coded React sites for brands that take design seriously. No templates. No WordPress. No shortcuts.</p>
@@ -577,44 +583,38 @@ footer{padding:48px 52px;border-top:1px solid var(--border);display:flex;align-i
   </div>
 </section>
 
-<!-- ═══ PROCESS (STICKY SCRUB) ═══ -->
-<section id="process">
-  <div class="proc-pin" id="proc-pin">
-    <div class="proc-sticky" id="proc-sticky">
-      <div class="proc-header" style="padding-left:52px">
-        <div class="s-label" style="margin-bottom:28px">
-          <div class="s-bar"></div>
-          <span class="s-ltxt">Process</span>
-          <span class="s-lnum">05</span>
-        </div>
-        <h2 class="s-title">How we <em>work.</em></h2>
-      </div>
-      <div class="proc-steps-track" id="proc-track">
-        <div class="proc-step">
-          <span class="proc-num">01</span>
-          <div class="proc-idx">Discovery</div>
-          <div class="proc-title">We listen first.</div>
-          <div class="proc-desc">Deep-dive into your brand, audience, and goals. No assumptions, just clarity before a pixel gets designed.</div>
-        </div>
-        <div class="proc-step">
-          <span class="proc-num">02</span>
-          <div class="proc-idx">Design</div>
-          <div class="proc-title">Every pixel intentional.</div>
-          <div class="proc-desc">Full Figma prototype. Every screen signed off, every interaction considered before code is written.</div>
-        </div>
-        <div class="proc-step">
-          <span class="proc-num">03</span>
-          <div class="proc-idx">Build</div>
-          <div class="proc-title">Code that performs.</div>
-          <div class="proc-desc">Clean, modular React. GSAP animations. Three.js where it matters. Optimized for every device.</div>
-        </div>
-        <div class="proc-step">
-          <span class="proc-num">04</span>
-          <div class="proc-idx">Launch</div>
-          <div class="proc-title">Then we stay.</div>
-          <div class="proc-desc">Full deployment, cross-device testing, performance audit. Ongoing support so you're never left hanging.</div>
-        </div>
-      </div>
+<!-- ═══ PROCESS ═══ -->
+<section id="process" class="s" style="background:var(--dim)">
+  <div class="s-label">
+    <div class="s-bar"></div>
+    <span class="s-ltxt">Process</span>
+    <span class="s-lnum">05</span>
+  </div>
+  <h2 class="s-title">How we <em>work.</em></h2>
+  <div class="proc-grid" id="proc-grid">
+    <div class="proc-step">
+      <span class="proc-num">01</span>
+      <div class="proc-idx">Discovery</div>
+      <div class="proc-title">We listen first.</div>
+      <div class="proc-desc">Deep-dive into your brand, audience, and goals. No assumptions, just clarity before a pixel gets designed.</div>
+    </div>
+    <div class="proc-step">
+      <span class="proc-num">02</span>
+      <div class="proc-idx">Design</div>
+      <div class="proc-title">Every pixel intentional.</div>
+      <div class="proc-desc">Full Figma prototype. Every screen signed off, every interaction considered before code is written.</div>
+    </div>
+    <div class="proc-step">
+      <span class="proc-num">03</span>
+      <div class="proc-idx">Build</div>
+      <div class="proc-title">Code that performs.</div>
+      <div class="proc-desc">Clean, modular React. GSAP animations. Three.js where it matters. Optimized for every device.</div>
+    </div>
+    <div class="proc-step">
+      <span class="proc-num">04</span>
+      <div class="proc-idx">Launch</div>
+      <div class="proc-title">Then we stay.</div>
+      <div class="proc-desc">Full deployment, cross-device testing, performance audit. Ongoing support so you're never left hanging.</div>
     </div>
   </div>
 </section>
@@ -747,7 +747,7 @@ gsap.to(counter,{v:100,duration:2.2,ease:'power2.inOut',
     const tl=gsap.timeline();
     tl.to('#l-line',{scaleX:1,duration:.5,ease:'power3.inOut'})
       .to($loader,{yPercent:-100,duration:.9,ease:'power3.inOut'},'-=.1')
-      .add(()=>{$loader.style.display='none';initThree();revealHero()});
+      .add(()=>{$loader.style.display='none';initThree();revealHero();setTimeout(()=>{const sl=document.getElementById('scramble-line');if(sl)scrambleText(sl,'We Build',200,22)},400)});
   }
 });
 
@@ -880,12 +880,10 @@ gsap.to('.si',{opacity:1,scale:1,duration:.5,stagger:.04,ease:'power3.out',
   scrollTrigger:{trigger:'.stack-grid',start:'top 80%'}
 });
 
-/* ━━━ PROCESS — reveal ━━━ */
-document.querySelectorAll('.proc-step').forEach((step,i)=>{
-  gsap.to(step,{
-    clipPath:'inset(0 0 0% 0)',duration:.9,ease:'power3.inOut',delay:i*.14,
-    scrollTrigger:{trigger:'#process',start:'top 75%'}
-  });
+/* ━━━ PROCESS — stagger clip reveal ━━━ */
+gsap.to('.proc-step',{
+  clipPath:'inset(0 0 0% 0)',duration:.85,stagger:.14,ease:'power3.inOut',
+  scrollTrigger:{trigger:'#proc-grid',start:'top 78%'}
 });
 
 /* ━━━ FAQ ━━━ */
@@ -933,6 +931,101 @@ document.querySelectorAll('.btn,.nav-cta,.pc-cta,.form-btn').forEach(el=>{
   });
   el.addEventListener('mouseleave',()=>gsap.to(el,{x:0,y:0,duration:.6,ease:'elastic.out(1,.5)'}));
 });
+
+/* ━━━ TEXT SCRAMBLE ━━━ */
+const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/@#✦';
+function scrambleText(el, finalText, delay=0, speed=28){
+  setTimeout(()=>{
+    let iter=0;
+    const iv=setInterval(()=>{
+      el.textContent=finalText.split('').map((ch,i)=>{
+        if(i<iter)return ch;
+        return CHARS[Math.floor(Math.random()*CHARS.length)];
+      }).join('');
+      iter+=.4;
+      if(iter>finalText.length){el.textContent=finalText;clearInterval(iv)}
+    },speed);
+  },delay);
+}
+
+/* ━━━ ROTATING HERO WORD ━━━ */
+const rotWords=['Experiences.','Websites.','Brands.','Interfaces.'];
+let rotIdx=0;
+const $rot=document.getElementById('rotating-word');
+function rotateWord(){
+  rotIdx=(rotIdx+1)%rotWords.length;
+  const next=rotWords[rotIdx];
+  gsap.to($rot,{y:'-120%',opacity:0,duration:.4,ease:'power3.in',
+    onComplete(){
+      $rot.textContent=next;
+      gsap.fromTo($rot,{y:'120%',opacity:0},{y:0,opacity:1,duration:.5,ease:'power3.out'});
+    }
+  });
+}
+setInterval(rotateWord,2800);
+
+/* ━━━ SCRAMBLE after page load ━━━ */
+window.addEventListener('load',()=>{
+  // scramble fires after revealHero in loader callback
+});
+
+/* ━━━ WORD-BY-WORD REVEAL ━━━ */
+function wordReveal(selector){
+  document.querySelectorAll(selector).forEach(el=>{
+    if(!el.dataset.split){
+      el.dataset.split='done';
+      const words=el.textContent.trim().split(/\s+/);
+      el.innerHTML=words.map(w=>`<span class="wr-word"><span class="wr-inner">${w}</span></span>`).join(' ');
+    }
+    gsap.to(el.querySelectorAll('.wr-inner'),{
+      y:0,duration:.75,stagger:.05,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 90%'}
+    });
+  });
+}
+wordReveal('.h-desc');
+wordReveal('.proc-desc');
+wordReveal('.pc-tag');
+wordReveal('.stack-note');
+wordReveal('.stat-desc');
+wordReveal('.contact-body');
+
+/* ━━━ SCRAMBLE ON SECTION TITLES ━━━ */
+document.querySelectorAll('.s-title,.proc-title').forEach(el=>{
+  const orig=el.textContent.trim();
+  ScrollTrigger.create({
+    trigger:el,start:'top 88%',once:true,
+    onEnter(){
+      // Only scramble the plain text, preserve em tags
+      const plainText=el.innerText.trim();
+      scrambleText(el,plainText,0,18);
+      setTimeout(()=>{
+        // Restore HTML (em tags for accent color)
+        if(el.innerHTML.indexOf('<em>')===-1&&el.dataset.html){
+          el.innerHTML=el.dataset.html;
+        }
+      },1200);
+    }
+  });
+  // Save original HTML before scramble
+  el.dataset.html=el.innerHTML;
+});
+
+/* smooth scroll removed — native scroll used */
+
+/* ━━━ SECTION BORDER REVEAL (horizontal line wipe) ━━━ */
+document.querySelectorAll('.s-bar').forEach(el=>{
+  gsap.fromTo(el,{scaleX:0,transformOrigin:'left'},{scaleX:1,duration:.8,ease:'power3.inOut',
+    scrollTrigger:{trigger:el,start:'top 90%'}
+  });
+});
+
+/* ━━━ STAT NUMBERS EXTRA POLISH ━━━ */
+document.querySelectorAll('.stat-num').forEach(el=>{
+  gsap.to(el,{color:'#C8FF00',duration:.3,delay:.8,scrollTrigger:{trigger:el,start:'top 80%'}});
+  setTimeout(()=>gsap.to(el,{color:'var(--accent)',duration:0}),0);
+});
+
 </script>
 </body>
 </html>
